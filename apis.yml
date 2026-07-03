@@ -1,0 +1,197 @@
+aid: scrive
+url: https://raw.githubusercontent.com/api-evangelist/scrive/refs/heads/main/apis.yml
+name: Scrive
+kind: company
+description: Scrive is a Nordic e-signature and digital identity (e-ID) platform for
+  agreeing, signing, and verifying documents online. The Scrive Document API (eSign
+  Online, Version 2) is a RESTful, JSON-over-HTTPS interface that creates, prepares,
+  sends, and manages the full lifecycle of documents for electronic signing, with
+  identity verification through Nordic and European e-ID methods including Swedish,
+  Norwegian, and Finnish BankID, Danish MitID, Freja, and Smart-ID. Authentication
+  uses OAuth2, OAuth 1.0, or personal access credentials; document status changes
+  are delivered to consumers via HTTP callback (webhook) URLs. A separate Scrive eID
+  Hub provides standalone identity authentication and signing.
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+tags:
+- E-Signature
+- Electronic Signing
+- Digital Identity
+- e-ID
+- BankID
+- MitID
+- Nordic
+- Document Workflow
+created: '2026-07-03'
+modified: '2026-07-03'
+specificationVersion: '0.19'
+apis:
+- aid: scrive:scrive-documents-api
+  name: Scrive Documents API
+  tags:
+  - Documents
+  - eSign
+  - Lifecycle
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://apidocs.scrive.com/
+  baseURL: https://scrive.com/api/v2
+  properties:
+  - url: https://apidocs.scrive.com/
+    type: Documentation
+  - url: https://apidocs.scrive.com/
+    type: APIReference
+  - url: openapi/scrive-openapi.yml
+    type: OpenAPI
+  - url: collections/scrive.postman_collection.json
+    type: PostmanCollection
+  - url: collections/scrive.opencollection.json
+    type: OpenCollection
+  description: Create, prepare, update, and drive the full lifecycle of documents for
+    electronic signing - new documents, set/append files, start the signing process,
+    retrieve, list, remind, prolong, cancel, trash, and delete. The core of Scrive
+    eSign Online (Document API Version 2).
+- aid: scrive:scrive-templates-api
+  name: Scrive Templates API
+  tags:
+  - Templates
+  - Reuse
+  - Documents
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://apidocs.scrive.com/
+  baseURL: https://scrive.com/api/v2
+  properties:
+  - url: https://apidocs.scrive.com/
+    type: Documentation
+  - url: openapi/scrive-openapi.yml
+    type: OpenAPI
+  - url: collections/scrive.postman_collection.json
+    type: PostmanCollection
+  - url: collections/scrive.opencollection.json
+    type: OpenCollection
+  description: Reuse saved documents as templates - create new documents from a template,
+    clone existing documents, and drive repeatable signing workflows and bulk sends
+    from a single reusable definition.
+- aid: scrive:scrive-signing-api
+  name: Scrive Signing API
+  tags:
+  - Signing
+  - Signatories
+  - QR Code
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://apidocs.scrive.com/
+  baseURL: https://scrive.com/api/v2
+  properties:
+  - url: https://apidocs.scrive.com/
+    type: Documentation
+  - url: openapi/scrive-openapi.yml
+    type: OpenAPI
+  - url: collections/scrive.postman_collection.json
+    type: PostmanCollection
+  - url: collections/scrive.opencollection.json
+    type: OpenCollection
+  description: Manage the signatory-facing signing process - retrieve signing data and
+    sign-link QR codes, remind and resend to signatories, forward and restart documents,
+    change signatory contact details, and run bulk sends.
+- aid: scrive:scrive-eid-authentication-api
+  name: Scrive e-ID Authentication API
+  tags:
+  - e-ID
+  - BankID
+  - MitID
+  - Authentication
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://eid.scrive.com/documentation/api/v1/
+  baseURL: https://scrive.com/api/v2
+  properties:
+  - url: https://eid.scrive.com/documentation/api/v1/
+    type: Documentation
+  - url: openapi/scrive-openapi.yml
+    type: OpenAPI
+  - url: collections/scrive.postman_collection.json
+    type: PostmanCollection
+  - url: collections/scrive.opencollection.json
+    type: OpenCollection
+  description: Configure electronic identity verification for signatories - set the
+    authentication method required to view, to sign, and to view archived documents
+    (Swedish/Norwegian/Finnish BankID, Danish MitID, Freja, Smart-ID, SMS PIN, Onfido,
+    and more). A standalone Scrive eID Hub also provides direct e-ID authentication.
+- aid: scrive:scrive-attachments-api
+  name: Scrive Attachments API
+  tags:
+  - Attachments
+  - Files
+  - Documents
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://apidocs.scrive.com/
+  baseURL: https://scrive.com/api/v2
+  properties:
+  - url: https://apidocs.scrive.com/
+    type: Documentation
+  - url: openapi/scrive-openapi.yml
+    type: OpenAPI
+  - url: collections/scrive.postman_collection.json
+    type: PostmanCollection
+  - url: collections/scrive.opencollection.json
+    type: OpenCollection
+  description: Manage author and signatory attachments and document files - list, create,
+    download, share, and delete reusable attachments; set author attachments on a document;
+    request and attach files from signatories; and download main files and ZIP archives.
+- aid: scrive:scrive-callbacks-api
+  name: Scrive Callbacks API
+  tags:
+  - Callbacks
+  - Webhooks
+  - Notifications
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://apidocs.scrive.com/
+  baseURL: https://scrive.com/api/v2
+  properties:
+  - url: https://apidocs.scrive.com/
+    type: Documentation
+  - url: openapi/scrive-openapi.yml
+    type: OpenAPI
+  - url: collections/scrive.postman_collection.json
+    type: PostmanCollection
+  - url: collections/scrive.opencollection.json
+    type: OpenCollection
+  description: Receive document status changes as HTTP POST callbacks (webhooks) to a
+    configured api_callback_url when a document becomes pending, closed, canceled,
+    timedout, or rejected, with automatic retries; trigger a manual callback on demand.
+- aid: scrive:scrive-access-control-api
+  name: Scrive Access Control API
+  tags:
+  - Access Control
+  - User Groups
+  - Folders
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://apidocs.scrive.com/
+  baseURL: https://scrive.com/api/v2
+  properties:
+  - url: https://apidocs.scrive.com/
+    type: Documentation
+  - url: openapi/scrive-openapi.yml
+    type: OpenAPI
+  - url: collections/scrive.postman_collection.json
+    type: PostmanCollection
+  - url: collections/scrive.opencollection.json
+    type: OpenCollection
+  description: Administer organizational access - manage user groups and their settings
+    and contact details, grant and revoke access roles for users, and organize documents
+    into folders.
+common:
+- type: GitHubOrganization
+  url: https://github.com/scrive
+- type: LinkedIn
+  url: https://www.linkedin.com/company/scrive
+- type: Website
+  url: https://www.scrive.com
+- type: Documentation
+  url: https://apidocs.scrive.com/
+- type: Plans
+  url: plans/scrive-plans-pricing.yml
+- type: RateLimits
+  url: rate-limits/scrive-rate-limits.yml
+- type: FinOps
+  url: finops/scrive-finops.yml
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

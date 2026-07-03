@@ -1,0 +1,50 @@
+specification: API Commons Rate Limits
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/RateLimits
+provider: Scrive
+providerId: scrive
+created: '2026-07-03'
+modified: '2026-07-03'
+reconciled: false
+tags:
+- E-Signature
+- e-ID
+- Rate Limiting
+- Quotas
+description: >-
+  The Scrive Document API applies rate limiting at the User Group level. As
+  documented, a User Group is limited to 20,000 API calls per hour, and multiple
+  API clients within the same user group share that single limit. Scrive states
+  that rate limits are subject to change at any time without notice. Document
+  status callbacks (webhooks) that fail (non-2xx response) are retried at
+  increasing intervals starting after 5 minutes, ceasing after 10 failed
+  attempts.
+notes: >-
+  The 20,000 calls/hour figure is the published per-user-group ceiling as of the
+  review date and may change without notice. Confirm current limits in the live
+  documentation at apidocs.scrive.com before relying on them.
+sources:
+- https://apidocs.scrive.com/
+responseCodes:
+  throttled: 429
+limits:
+- name: User Group API Calls
+  scope: user-group
+  metric: requests
+  limit: 20000 per hour
+  notes: Shared across all API clients within the same user group. Subject to change without notice.
+- name: Callback Retry
+  scope: document
+  metric: retries
+  limit: 10 attempts
+  notes: Failed status callbacks (non-2xx) are retried at increasing intervals starting after 5 minutes, up to 10 attempts.
+policies:
+- name: Shared Group Limit
+  description: The per-hour call limit is enforced per user group, not per API client; multiple integrations under one group draw down the same budget.
+- name: Backoff Strategy
+  description: Clients should implement exponential backoff with jitter and honor 429 responses, as limits may change at any time.
+- name: Callback Reliability
+  description: Callback endpoints must return a 2xx quickly; Scrive retries failed deliveries with increasing intervals and stops after 10 attempts, so consumers should also reconcile state via the documents list/get endpoints.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

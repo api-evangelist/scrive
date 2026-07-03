@@ -1,0 +1,265 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Scrive Document API",
+    "version": "2.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{accessToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": { "name": "Documents", "type": "folder" },
+      "items": [
+        {
+          "info": { "name": "Create a new document.", "type": "http" },
+          "http": { "method": "POST", "url": "https://scrive.com/api/v2/documents/new" },
+          "docs": "Creates a new document in preparation state."
+        },
+        {
+          "info": { "name": "Update a document.", "type": "http" },
+          "http": {
+            "method": "POST",
+            "url": "https://scrive.com/api/v2/documents/:document_id/update",
+            "params": [
+              { "name": "document_id", "value": "", "type": "path", "description": "The document ID." }
+            ],
+            "body": { "type": "json", "data": "{}" }
+          },
+          "docs": "Updates the document definition (parties, fields, settings)."
+        },
+        {
+          "info": { "name": "Set the main file.", "type": "http" },
+          "http": {
+            "method": "POST",
+            "url": "https://scrive.com/api/v2/documents/:document_id/setfile",
+            "params": [
+              { "name": "document_id", "value": "", "type": "path", "description": "The document ID." }
+            ]
+          },
+          "docs": "Sets the main PDF file of a document."
+        },
+        {
+          "info": { "name": "Start the signing process.", "type": "http" },
+          "http": {
+            "method": "POST",
+            "url": "https://scrive.com/api/v2/documents/:document_id/start",
+            "params": [
+              { "name": "document_id", "value": "", "type": "path", "description": "The document ID." }
+            ]
+          },
+          "docs": "Starts the signing process; the document becomes pending."
+        },
+        {
+          "info": { "name": "Retrieve a document.", "type": "http" },
+          "http": {
+            "method": "GET",
+            "url": "https://scrive.com/api/v2/documents/:document_id/get",
+            "params": [
+              { "name": "document_id", "value": "", "type": "path", "description": "The document ID." }
+            ]
+          },
+          "docs": "Retrieves a document by ID."
+        },
+        {
+          "info": { "name": "List documents.", "type": "http" },
+          "http": { "method": "GET", "url": "https://scrive.com/api/v2/documents/list" },
+          "docs": "Lists documents with optional filter, sorting, and paging."
+        },
+        {
+          "info": { "name": "Cancel a document.", "type": "http" },
+          "http": {
+            "method": "POST",
+            "url": "https://scrive.com/api/v2/documents/:document_id/cancel",
+            "params": [
+              { "name": "document_id", "value": "", "type": "path", "description": "The document ID." }
+            ]
+          },
+          "docs": "Cancels a pending document."
+        }
+      ]
+    },
+    {
+      "info": { "name": "Templates", "type": "folder" },
+      "items": [
+        {
+          "info": { "name": "Create a document from a template.", "type": "http" },
+          "http": {
+            "method": "POST",
+            "url": "https://scrive.com/api/v2/documents/newfromtemplate/:document_id",
+            "params": [
+              { "name": "document_id", "value": "", "type": "path", "description": "The template document ID." }
+            ]
+          },
+          "docs": "Creates a new document from a saved template."
+        },
+        {
+          "info": { "name": "Clone a document.", "type": "http" },
+          "http": {
+            "method": "POST",
+            "url": "https://scrive.com/api/v2/documents/:document_id/clone",
+            "params": [
+              { "name": "document_id", "value": "", "type": "path", "description": "The document ID." }
+            ]
+          },
+          "docs": "Clones an existing document."
+        }
+      ]
+    },
+    {
+      "info": { "name": "Signing", "type": "folder" },
+      "items": [
+        {
+          "info": { "name": "Remind signatories.", "type": "http" },
+          "http": {
+            "method": "POST",
+            "url": "https://scrive.com/api/v2/documents/:document_id/remind",
+            "params": [
+              { "name": "document_id", "value": "", "type": "path", "description": "The document ID." }
+            ]
+          },
+          "docs": "Sends a reminder to pending signatories."
+        },
+        {
+          "info": { "name": "Resend invitation to a signatory.", "type": "http" },
+          "http": {
+            "method": "POST",
+            "url": "https://scrive.com/api/v2/documents/:document_id/:signatory_id/resend",
+            "params": [
+              { "name": "document_id", "value": "", "type": "path", "description": "The document ID." },
+              { "name": "signatory_id", "value": "", "type": "path", "description": "The signatory ID." }
+            ]
+          },
+          "docs": "Resends the invitation to a specific signatory."
+        },
+        {
+          "info": { "name": "Get sign-link QR code.", "type": "http" },
+          "http": {
+            "method": "GET",
+            "url": "https://scrive.com/api/v2/documents/:document_id/:signatory_id/getqrcode",
+            "params": [
+              { "name": "document_id", "value": "", "type": "path", "description": "The document ID." },
+              { "name": "signatory_id", "value": "", "type": "path", "description": "The signatory ID." }
+            ]
+          },
+          "docs": "Returns a QR code linking to the signatory's signing view."
+        }
+      ]
+    },
+    {
+      "info": { "name": "e-ID Authentication", "type": "folder" },
+      "items": [
+        {
+          "info": { "name": "Set authentication to view.", "type": "http" },
+          "http": {
+            "method": "POST",
+            "url": "https://scrive.com/api/v2/documents/:document_id/:signatory_id/setauthenticationtoview",
+            "params": [
+              { "name": "document_id", "value": "", "type": "path", "description": "The document ID." },
+              { "name": "signatory_id", "value": "", "type": "path", "description": "The signatory ID." }
+            ],
+            "body": { "type": "json", "data": "{\n  \"authentication_type\": \"se_bankid\"\n}" }
+          },
+          "docs": "Sets the e-ID method required for the signatory to view the document."
+        },
+        {
+          "info": { "name": "Set authentication to sign.", "type": "http" },
+          "http": {
+            "method": "POST",
+            "url": "https://scrive.com/api/v2/documents/:document_id/:signatory_id/setauthenticationtosign",
+            "params": [
+              { "name": "document_id", "value": "", "type": "path", "description": "The document ID." },
+              { "name": "signatory_id", "value": "", "type": "path", "description": "The signatory ID." }
+            ],
+            "body": { "type": "json", "data": "{\n  \"authentication_type\": \"se_bankid\"\n}" }
+          },
+          "docs": "Sets the e-ID method required for the signatory to sign (BankID, MitID, Freja, Smart-ID, SMS PIN, etc.)."
+        }
+      ]
+    },
+    {
+      "info": { "name": "Attachments", "type": "folder" },
+      "items": [
+        {
+          "info": { "name": "List reusable attachments.", "type": "http" },
+          "http": { "method": "GET", "url": "https://scrive.com/api/v2/attachments/list" },
+          "docs": "Lists reusable attachments in the account."
+        },
+        {
+          "info": { "name": "Download an attachment.", "type": "http" },
+          "http": {
+            "method": "GET",
+            "url": "https://scrive.com/api/v2/attachments/:attachment_id/download",
+            "params": [
+              { "name": "attachment_id", "value": "", "type": "path", "description": "The attachment ID." }
+            ]
+          },
+          "docs": "Downloads a reusable attachment."
+        },
+        {
+          "info": { "name": "Download main file.", "type": "http" },
+          "http": {
+            "method": "GET",
+            "url": "https://scrive.com/api/v2/documents/:document_id/files/main/document.pdf",
+            "params": [
+              { "name": "document_id", "value": "", "type": "path", "description": "The document ID." }
+            ]
+          },
+          "docs": "Downloads the main PDF file of a document."
+        }
+      ]
+    },
+    {
+      "info": { "name": "Callbacks", "type": "folder" },
+      "items": [
+        {
+          "info": { "name": "Trigger a manual callback.", "type": "http" },
+          "http": {
+            "method": "POST",
+            "url": "https://scrive.com/api/v2/documents/:document_id/callback",
+            "params": [
+              { "name": "document_id", "value": "", "type": "path", "description": "The document ID." }
+            ]
+          },
+          "docs": "Triggers an HTTP POST callback to the document's configured api_callback_url."
+        }
+      ]
+    },
+    {
+      "info": { "name": "Access Control", "type": "folder" },
+      "items": [
+        {
+          "info": { "name": "List a user's access roles.", "type": "http" },
+          "http": {
+            "method": "GET",
+            "url": "https://scrive.com/api/v2/accessroles/:user_id",
+            "params": [
+              { "name": "user_id", "value": "", "type": "path", "description": "The user ID." }
+            ]
+          },
+          "docs": "Lists the access roles granted to a user."
+        },
+        {
+          "info": { "name": "Get a user group.", "type": "http" },
+          "http": {
+            "method": "GET",
+            "url": "https://scrive.com/api/v2/usergroups/:group_id/get",
+            "params": [
+              { "name": "group_id", "value": "", "type": "path", "description": "The user group ID." }
+            ]
+          },
+          "docs": "Retrieves a user group."
+        },
+        {
+          "info": { "name": "Create a folder.", "type": "http" },
+          "http": { "method": "POST", "url": "https://scrive.com/api/v2/folders/create" },
+          "docs": "Creates a folder for organizing documents."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,251 @@
+{
+  "info": {
+    "name": "Scrive Document API",
+    "description": "The Scrive Document API (eSign Online, Version 2) - a RESTful JSON-over-HTTPS interface to create, prepare, send, and manage the lifecycle of documents for electronic signing, with Nordic and European e-ID verification (BankID, MitID, Freja, Smart-ID). Base URL: https://scrive.com/api/v2 (production) or https://api-testbed.scrive.com/api/v2 (testbed). Auth via OAuth2, OAuth 1.0, or personal access credentials. Docs: https://apidocs.scrive.com/",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      { "key": "token", "value": "{{accessToken}}", "type": "string" }
+    ]
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "https://scrive.com/api/v2", "type": "string" },
+    { "key": "accessToken", "value": "", "type": "string" },
+    { "key": "documentId", "value": "", "type": "string" },
+    { "key": "signatoryId", "value": "", "type": "string" },
+    { "key": "attachmentId", "value": "", "type": "string" }
+  ],
+  "item": [
+    {
+      "name": "Documents",
+      "item": [
+        {
+          "name": "Create a new document",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": { "mode": "formdata", "formdata": [{ "key": "saved", "value": "true", "type": "text" }] },
+            "url": { "raw": "{{baseUrl}}/documents/new", "host": ["{{baseUrl}}"], "path": ["documents", "new"] },
+            "description": "Creates a new document in preparation state."
+          }
+        },
+        {
+          "name": "Update a document",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": { "mode": "formdata", "formdata": [{ "key": "document", "value": "{}", "type": "text" }] },
+            "url": { "raw": "{{baseUrl}}/documents/:document_id/update", "host": ["{{baseUrl}}"], "path": ["documents", ":document_id", "update"], "variable": [{ "key": "document_id", "value": "{{documentId}}" }] },
+            "description": "Updates the document definition (parties, fields, settings)."
+          }
+        },
+        {
+          "name": "Set the main file",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": { "mode": "formdata", "formdata": [{ "key": "file", "type": "file", "src": [] }] },
+            "url": { "raw": "{{baseUrl}}/documents/:document_id/setfile", "host": ["{{baseUrl}}"], "path": ["documents", ":document_id", "setfile"], "variable": [{ "key": "document_id", "value": "{{documentId}}" }] },
+            "description": "Sets the main PDF file of a document."
+          }
+        },
+        {
+          "name": "Start the signing process",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/documents/:document_id/start", "host": ["{{baseUrl}}"], "path": ["documents", ":document_id", "start"], "variable": [{ "key": "document_id", "value": "{{documentId}}" }] },
+            "description": "Starts the signing process; the document becomes pending."
+          }
+        },
+        {
+          "name": "Retrieve a document",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/documents/:document_id/get", "host": ["{{baseUrl}}"], "path": ["documents", ":document_id", "get"], "variable": [{ "key": "document_id", "value": "{{documentId}}" }] },
+            "description": "Retrieves a document by ID."
+          }
+        },
+        {
+          "name": "List documents",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/documents/list", "host": ["{{baseUrl}}"], "path": ["documents", "list"] },
+            "description": "Lists documents with optional filter, sorting, and paging."
+          }
+        },
+        {
+          "name": "Cancel a document",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/documents/:document_id/cancel", "host": ["{{baseUrl}}"], "path": ["documents", ":document_id", "cancel"], "variable": [{ "key": "document_id", "value": "{{documentId}}" }] },
+            "description": "Cancels a pending document."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Templates",
+      "item": [
+        {
+          "name": "Create a document from a template",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/documents/newfromtemplate/:document_id", "host": ["{{baseUrl}}"], "path": ["documents", "newfromtemplate", ":document_id"], "variable": [{ "key": "document_id", "value": "{{documentId}}" }] },
+            "description": "Creates a new document from a saved template."
+          }
+        },
+        {
+          "name": "Clone a document",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/documents/:document_id/clone", "host": ["{{baseUrl}}"], "path": ["documents", ":document_id", "clone"], "variable": [{ "key": "document_id", "value": "{{documentId}}" }] },
+            "description": "Clones an existing document."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Signing",
+      "item": [
+        {
+          "name": "Remind signatories",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/documents/:document_id/remind", "host": ["{{baseUrl}}"], "path": ["documents", ":document_id", "remind"], "variable": [{ "key": "document_id", "value": "{{documentId}}" }] },
+            "description": "Sends a reminder to pending signatories."
+          }
+        },
+        {
+          "name": "Resend invitation to a signatory",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/documents/:document_id/:signatory_id/resend", "host": ["{{baseUrl}}"], "path": ["documents", ":document_id", ":signatory_id", "resend"], "variable": [{ "key": "document_id", "value": "{{documentId}}" }, { "key": "signatory_id", "value": "{{signatoryId}}" }] },
+            "description": "Resends the invitation to a specific signatory."
+          }
+        },
+        {
+          "name": "Get sign-link QR code",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/documents/:document_id/:signatory_id/getqrcode", "host": ["{{baseUrl}}"], "path": ["documents", ":document_id", ":signatory_id", "getqrcode"], "variable": [{ "key": "document_id", "value": "{{documentId}}" }, { "key": "signatory_id", "value": "{{signatoryId}}" }] },
+            "description": "Returns a QR code linking to the signatory's signing view."
+          }
+        }
+      ]
+    },
+    {
+      "name": "e-ID Authentication",
+      "item": [
+        {
+          "name": "Set authentication to view",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": { "mode": "formdata", "formdata": [{ "key": "authentication_type", "value": "se_bankid", "type": "text" }] },
+            "url": { "raw": "{{baseUrl}}/documents/:document_id/:signatory_id/setauthenticationtoview", "host": ["{{baseUrl}}"], "path": ["documents", ":document_id", ":signatory_id", "setauthenticationtoview"], "variable": [{ "key": "document_id", "value": "{{documentId}}" }, { "key": "signatory_id", "value": "{{signatoryId}}" }] },
+            "description": "Sets the e-ID method required for the signatory to view the document."
+          }
+        },
+        {
+          "name": "Set authentication to sign",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": { "mode": "formdata", "formdata": [{ "key": "authentication_type", "value": "se_bankid", "type": "text" }] },
+            "url": { "raw": "{{baseUrl}}/documents/:document_id/:signatory_id/setauthenticationtosign", "host": ["{{baseUrl}}"], "path": ["documents", ":document_id", ":signatory_id", "setauthenticationtosign"], "variable": [{ "key": "document_id", "value": "{{documentId}}" }, { "key": "signatory_id", "value": "{{signatoryId}}" }] },
+            "description": "Sets the e-ID method required for the signatory to sign (BankID, MitID, Freja, Smart-ID, SMS PIN, etc.)."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Attachments",
+      "item": [
+        {
+          "name": "List reusable attachments",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/attachments/list", "host": ["{{baseUrl}}"], "path": ["attachments", "list"] },
+            "description": "Lists reusable attachments in the account."
+          }
+        },
+        {
+          "name": "Download an attachment",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/attachments/:attachment_id/download", "host": ["{{baseUrl}}"], "path": ["attachments", ":attachment_id", "download"], "variable": [{ "key": "attachment_id", "value": "{{attachmentId}}" }] },
+            "description": "Downloads a reusable attachment."
+          }
+        },
+        {
+          "name": "Download main file",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/documents/:document_id/files/main/document.pdf", "host": ["{{baseUrl}}"], "path": ["documents", ":document_id", "files", "main", "document.pdf"], "variable": [{ "key": "document_id", "value": "{{documentId}}" }] },
+            "description": "Downloads the main PDF file of a document."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Callbacks",
+      "item": [
+        {
+          "name": "Trigger a manual callback",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/documents/:document_id/callback", "host": ["{{baseUrl}}"], "path": ["documents", ":document_id", "callback"], "variable": [{ "key": "document_id", "value": "{{documentId}}" }] },
+            "description": "Triggers an HTTP POST callback to the document's configured api_callback_url."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Access Control",
+      "item": [
+        {
+          "name": "List a user's access roles",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/accessroles/:user_id", "host": ["{{baseUrl}}"], "path": ["accessroles", ":user_id"], "variable": [{ "key": "user_id", "value": "" }] },
+            "description": "Lists the access roles granted to a user."
+          }
+        },
+        {
+          "name": "Get a user group",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/usergroups/:group_id/get", "host": ["{{baseUrl}}"], "path": ["usergroups", ":group_id", "get"], "variable": [{ "key": "group_id", "value": "" }] },
+            "description": "Retrieves a user group."
+          }
+        },
+        {
+          "name": "Create a folder",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/folders/create", "host": ["{{baseUrl}}"], "path": ["folders", "create"] },
+            "description": "Creates a folder for organizing documents."
+          }
+        }
+      ]
+    }
+  ]
+}

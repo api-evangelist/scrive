@@ -1,0 +1,121 @@
+specification: API Commons Plans
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/Plans
+provider: Scrive
+providerId: scrive
+created: '2026-07-03'
+modified: '2026-07-03'
+reconciled: false
+tags:
+- E-Signature
+- Digital Identity
+- e-ID
+- Plans
+description: >-
+  Scrive sells eSign Online as seat-based subscription plans (Free Trial,
+  Essential, Business, Enterprise) billed per user per month, typically annually.
+  API access and integrations are associated with the higher tiers (Business and
+  Enterprise); the Document API and eID Hub are also offered through separate
+  API/volume-based commercial agreements. A 14-day free trial with a bounded
+  document allowance is available. Exact quotas, per-envelope/e-ID transaction
+  rates, and which tier unlocks API access should be confirmed with Scrive sales
+  during reconciliation.
+notes: >-
+  Prices below reflect the public eSign Online pricing page (EUR, billed
+  annually) as observed on 2026-07-03 and are subject to change. API and e-ID
+  transaction pricing is generally quoted separately by Scrive. Verify current
+  tiers at scrive.com/pricing/esign-online and scrive.com/get-started-api.
+sources:
+- https://www.scrive.com/pricing/esign-online
+- https://www.scrive.com/get-started-api
+- https://apidocs.scrive.com/
+plans:
+- id: scrive-free-trial
+  name: Free Trial
+  type: trial
+  description: >-
+    14-day free trial of Scrive eSign Online with a bounded document allowance,
+    for evaluating the product before subscribing.
+  entries:
+  - label: Trial Documents
+    name: trial_documents
+    type: usage
+    metric: documents
+    limit: 10
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: free for 14 days
+    userMultiplied: false
+  elements:
+  - name: eSign Online
+  - name: Nordic e-ID Signing
+- id: scrive-essential
+  name: Essential
+  type: paid
+  description: >-
+    Basic and secure e-signing tools for personal use or small teams, seat-based
+    with unlimited documents.
+  entries:
+  - label: Per User Subscription
+    name: essential_seat
+    type: flat
+    metric: seat
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: EUR 21 per user per month (billed annually)
+    userMultiplied: true
+  elements:
+  - name: eSign Online
+  - name: Unlimited Documents
+  - name: Nordic e-ID Signing
+- id: scrive-business
+  name: Business
+  type: paid
+  description: >-
+    For growing businesses that need templates and integrations, seat-based with
+    unlimited documents and access to integration/API capabilities.
+  entries:
+  - label: Per User Subscription
+    name: business_seat
+    type: flat
+    metric: seat
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: EUR 49 per user per month (billed annually)
+    userMultiplied: true
+  elements:
+  - name: Templates
+  - name: Integrations
+  - name: Document API Access
+  - name: Nordic and European e-ID
+- id: scrive-enterprise
+  name: Enterprise
+  type: enterprise
+  description: >-
+    For organizations needing custom workflows, dedicated service, scalable
+    configurations, and volume-based API and e-ID transaction pricing. Contact
+    Scrive.
+  entries:
+  - label: Enterprise Agreement
+    name: enterprise
+    type: flat
+    metric: contract
+    limit: -1
+    timeFrame: year
+    geo: global
+    unit: 1
+    price: contact sales
+    userMultiplied: false
+  elements:
+  - name: Custom Workflows
+  - name: Document API and eID Hub
+  - name: Dedicated Service and SLAs
+  - name: Volume Pricing
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

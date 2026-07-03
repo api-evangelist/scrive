@@ -1,0 +1,98 @@
+specification: FinOps Framework
+specificationVersion: '1.0'
+schema: https://www.finops.org/framework/
+provider: Scrive
+providerId: scrive
+created: '2026-07-03'
+modified: '2026-07-03'
+reconciled: false
+tags:
+- E-Signature
+- Digital Identity
+- e-ID
+- FinOps
+- Cost Management
+- FOCUS
+description: >-
+  FinOps view of Scrive spend. Scrive eSign Online is sold as seat-based
+  subscriptions (per user per month, typically billed annually), with the
+  Document API and e-ID transactions layered on the Business and Enterprise
+  tiers or as separate volume-based agreements. The dominant cost drivers are
+  the number of user seats, the volume of documents/envelopes sent for signing,
+  and e-ID authentication transactions (BankID, MitID, Freja, Smart-ID, etc.),
+  each of which can carry a per-transaction charge in higher-volume agreements.
+notes: >-
+  Per-envelope and per-e-ID transaction rates are not publicly reconciled here;
+  they are typically quoted by Scrive sales for Business/Enterprise and API
+  agreements. Verify on the pricing and get-started-api pages.
+sources:
+- https://www.scrive.com/pricing/esign-online
+- https://www.scrive.com/get-started-api
+- https://apidocs.scrive.com/
+- https://focus.finops.org/focus-specification/v1-3/
+alignedWith:
+  framework: FinOps Foundation Framework
+  frameworkUrl: https://www.finops.org/framework/
+  dataSpec: FOCUS
+  dataSpecVersion: '1.3'
+  dataSpecUrl: https://focus.finops.org/focus-specification/v1-3/
+publisherName: Scrive
+serviceCategory: E-Signature and Digital Identity
+billingModel:
+  pricingCategory: Subscription-Based
+  billingFrequency: Annual
+  billingCurrency: EUR
+  chargeCategories:
+  - Purchase
+  - Usage
+  - Adjustment
+focusColumns:
+  ServiceName: Scrive eSign Online
+  ServiceCategory: E-Signature and Digital Identity
+  ProviderName: Scrive
+  PublisherName: Scrive
+  InvoiceIssuerName: Scrive
+  BillingCurrency: EUR
+  ChargeCategory: Purchase
+  PricingCategory: Subscription-Based
+meters:
+- name: user_seats
+  description: Licensed user seats on an eSign Online plan, billed per user per month.
+  unit: seats
+  aggregation: max
+  dimensions:
+  - account
+  - user_group
+- name: documents_sent
+  description: Documents/envelopes sent for electronic signing.
+  unit: documents
+  aggregation: sum
+  dimensions:
+  - account
+  - user_group
+  - user
+- name: eid_transactions
+  description: e-ID authentication and QES signing transactions (BankID, MitID, Freja, Smart-ID, etc.), often billed per transaction on higher-volume agreements.
+  unit: transactions
+  aggregation: sum
+  dimensions:
+  - account
+  - eid_method
+- name: api_calls
+  description: Document API calls, governed by the per-user-group rate limit rather than direct per-call billing.
+  unit: requests
+  aggregation: sum
+  dimensions:
+  - user_group
+principles:
+- name: Visibility
+  description: Track seats, documents sent, and e-ID transactions per user group so cost maps to teams and workflows.
+- name: Allocation
+  description: Organize users into user groups and folders per business unit so document and e-ID spend is attributable.
+- name: Optimization
+  description: Reuse templates to cut preparation overhead, right-size seat counts, and select e-ID methods appropriate to the assurance level actually required to avoid unnecessary per-transaction cost.
+- name: Accountability
+  description: Assign owners per user group; review seat utilization and monthly document/e-ID volume against the subscription and any volume agreement.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

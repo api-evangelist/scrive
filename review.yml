@@ -1,0 +1,132 @@
+aid: scrive
+name: Scrive
+review:
+  question: Does Scrive expose a documented public WebSocket API?
+  answer: false
+  date: '2026-07-03'
+  reviewer: API Evangelist
+  asyncapiSpecCreated: false
+  asyncapiScopeNote: |
+    No AsyncAPI document was authored. Scrive's public API surface (the Document
+    API Version 2 and the eID Hub) is request/response REST over HTTPS. The only
+    server-initiated transport is document status callbacks, which Scrive
+    delivers as outbound HTTP POST requests to a consumer-configured
+    api_callback_url (a webhook), not as a WebSocket or SSE stream. Webhooks are
+    a server-to-endpoint HTTP push, out of scope for an AsyncAPI streaming
+    document here.
+findings:
+  summary: |
+    Scrive does not publish a documented public WebSocket API. Scrive is a Nordic
+    e-signature and digital identity (e-ID) platform. Its primary public API is
+    the Scrive Document API (eSign Online, Version 2), a RESTful JSON-over-HTTPS
+    interface at base https://scrive.com/api/v2 (production) or
+    https://api-testbed.scrive.com/api/v2 (testbed), authenticated with OAuth2,
+    OAuth 1.0, or personal access credentials. A separate Scrive eID Hub
+    (eid.scrive.com) provides standalone e-ID authentication and signing. All of
+    these are pure request/response REST. Asynchronous notification of document
+    status changes is delivered by an outbound HTTP POST callback (webhook) to a
+    configured api_callback_url when a document becomes pending, closed,
+    canceled, timedout, or rejected - with automatic retries. No realtime,
+    bidirectional, or streaming WebSocket (ws:// or wss://) endpoint is
+    documented anywhere on Scrive's API.
+  openSource: |
+    Scrive is a commercial SaaS; the Document API and eID Hub are proprietary,
+    hosted services. Scrive does maintain a public GitHub organization
+    (github.com/scrive) with open-source Haskell libraries and tooling, but the
+    e-signature/e-ID product APIs themselves are not open source or
+    self-hostable.
+  transports:
+    - protocol: REST
+      scheme: https
+      baseURL: https://scrive.com/api/v2
+      documented: true
+      note: Scrive Document API Version 2. Testbed base is https://api-testbed.scrive.com/api/v2.
+    - protocol: REST
+      scheme: https
+      baseURL: https://eid.scrive.com
+      documented: true
+      note: Scrive eID Hub - standalone e-ID authentication and signing (BankID, MitID, Freja, etc.).
+    - protocol: Webhook
+      scheme: https
+      documented: true
+      note: Document status callbacks are delivered as outbound HTTP POST to a configured api_callback_url. Server-to-endpoint HTTP push, retried up to 10 times, not a WebSocket.
+    - protocol: WebSocket
+      scheme: wss
+      documented: false
+      note: No WebSocket endpoint is documented anywhere in Scrive's Document API or eID Hub as of the review date.
+  endpointsConfirmedRest:
+    - GET    https://scrive.com/api/v2/monitor/status
+    - POST   https://scrive.com/api/v2/documents/new
+    - POST   https://scrive.com/api/v2/documents/newfromtemplate/{document_id}
+    - POST   https://scrive.com/api/v2/documents/{document_id}/clone
+    - POST   https://scrive.com/api/v2/documents/{document_id}/update
+    - POST   https://scrive.com/api/v2/documents/{document_id}/setfile
+    - POST   https://scrive.com/api/v2/documents/{document_id}/appendfile
+    - POST   https://scrive.com/api/v2/documents/{document_id}/setattachments
+    - POST   https://scrive.com/api/v2/documents/{document_id}/start
+    - GET    https://scrive.com/api/v2/documents/{document_id}/get
+    - GET    https://scrive.com/api/v2/documents/{short_document_id}/getbyshortid
+    - GET    https://scrive.com/api/v2/documents/list
+    - GET    https://scrive.com/api/v2/documents/{document_id}/canbestarted
+    - POST   https://scrive.com/api/v2/documents/{document_id}/remind
+    - POST   https://scrive.com/api/v2/documents/{document_id}/prolong
+    - POST   https://scrive.com/api/v2/documents/{document_id}/cancel
+    - POST   https://scrive.com/api/v2/documents/{document_id}/trash
+    - POST   https://scrive.com/api/v2/documents/{document_id}/delete
+    - POST   https://scrive.com/api/v2/documents/{document_id}/forward
+    - POST   https://scrive.com/api/v2/documents/{document_id}/restart
+    - POST   https://scrive.com/api/v2/documents/{document_id}/{signatory_id}/resend
+    - GET    https://scrive.com/api/v2/documents/{document_id}/{signatory_id}/getqrcode
+    - GET    https://scrive.com/api/v2/documents/{document_id}/{signatory_id}/signingdata
+    - POST   https://scrive.com/api/v2/documents/{document_id}/{signatory_id}/changemobile
+    - POST   https://scrive.com/api/v2/documents/{document_id}/{signatory_id}/setauthenticationtoview
+    - POST   https://scrive.com/api/v2/documents/{document_id}/{signatory_id}/setauthenticationtosign
+    - POST   https://scrive.com/api/v2/documents/{document_id}/{signatory_id}/setauthenticationtoviewarchived
+    - POST   https://scrive.com/api/v2/documents/{document_id}/{signatory_id}/setfiletosignatory
+    - GET    https://scrive.com/api/v2/documents/{document_id}/files/main/{filename}
+    - GET    https://scrive.com/api/v2/documents/{document_id}/files/zip/{filename}
+    - GET    https://scrive.com/api/v2/attachments/list
+    - POST   https://scrive.com/api/v2/attachments/new
+    - GET    https://scrive.com/api/v2/attachments/{attachment_id}/download
+    - POST   https://scrive.com/api/v2/attachments/{attachment_id}/share
+    - DELETE https://scrive.com/api/v2/attachments/{attachment_id}
+    - POST   https://scrive.com/api/v2/documents/{document_id}/callback
+    - POST   https://scrive.com/api/v2/usergroups/create
+    - GET    https://scrive.com/api/v2/usergroups/{group_id}/get
+    - GET    https://scrive.com/api/v2/usergroups/{group_id}/users
+    - GET    https://scrive.com/api/v2/accessroles/{user_id}
+    - POST   https://scrive.com/api/v2/accessroles/{user_id}
+    - DELETE https://scrive.com/api/v2/accessroles/{user_id}/{role_id}
+    - POST   https://scrive.com/api/v2/folders/create
+    - GET    https://scrive.com/api/v2/folders/{folder_id}
+    - DELETE https://scrive.com/api/v2/folders/{folder_id}
+  endpointsModeledNote: |
+    Request/response bodies in openapi/scrive-openapi.yml are modeled from the
+    public documentation narrative rather than copied field-by-field; the paths,
+    methods, base URLs, auth flows/scopes, e-ID method identifiers, rate limit,
+    and callback behavior are grounded in apidocs.scrive.com.
+sources:
+  - url: https://apidocs.scrive.com/
+    type: Documentation
+    note: Scrive Document API Version 2 reference - base URLs, OAuth2/OAuth1/personal-credentials auth, all document/template/signing/attachment/callback/access-control endpoints, e-ID methods, 20k/hour rate limit, and callback (webhook) behavior. All REST; no WebSocket.
+  - url: https://eid.scrive.com/documentation/api/v1/
+    type: Documentation
+    note: Scrive eID Hub - standalone e-ID authentication/signing API. REST.
+  - url: https://www.scrive.com/get-started-api
+    type: Documentation
+    note: Getting started with the Scrive API.
+  - url: https://www.scrive.com/pricing/esign-online
+    type: Pricing
+    note: eSign Online seat-based subscription plans (Free Trial, Essential, Business, Enterprise).
+  - url: https://github.com/scrive
+    type: SourceCode
+    note: Scrive's public GitHub org (open-source Haskell libraries/tooling); the product e-sign/e-ID APIs are proprietary SaaS, not here.
+actions:
+  asyncapiPath: null
+  apisYmlUpdated: true
+  reason: |
+    No WebSocket protocol surface exists. Scrive's public API is request/response
+    REST (Document API Version 2 and the eID Hub), and its only server-initiated
+    async transport is outbound HTTP POST callbacks (webhooks) to a
+    consumer-configured api_callback_url. No AsyncAPI document was created because
+    there is no WebSocket or SSE stream on Scrive's own API to model.
