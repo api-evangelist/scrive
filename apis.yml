@@ -178,6 +178,10 @@ apis:
     and contact details, grant and revoke access roles for users, and organize documents
     into folders.
 common:
+- type: Authentication
+  url: authentication/scrive-authentication.yml
+- type: OAuthScopes
+  url: scopes/scrive-scopes.yml
 - type: GitHubOrganization
   url: https://github.com/scrive
 - type: LinkedIn
@@ -192,6 +196,8 @@ common:
   url: rate-limits/scrive-rate-limits.yml
 - type: FinOps
   url: finops/scrive-finops.yml
+- url: https://www.scrive.com/resources/knowledge-hub
+  type: Blog
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com

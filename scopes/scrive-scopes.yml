@@ -1,0 +1,47 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/scrive-openapi.yml
+schemes:
+- name: oauth2
+  source: openapi/scrive-openapi.yml
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://oauth2.scrive.com/oauth2/authorization
+    tokenUrl: https://oauth2.scrive.com/oauth2/token
+scopes:
+- scope: doc:check
+  description: Read documents
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/scrive-openapi.yml
+- scope: doc:create
+  description: Create documents
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/scrive-openapi.yml
+- scope: doc:send
+  description: Send documents
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/scrive-openapi.yml
+- scope: full
+  description: Full access
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/scrive-openapi.yml
+- scope: offline_access
+  description: Refresh tokens
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/scrive-openapi.yml
+- scope: openid
+  description: OpenID Connect
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/scrive-openapi.yml
