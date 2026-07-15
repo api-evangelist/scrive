@@ -178,6 +178,8 @@ apis:
     and contact details, grant and revoke access roles for users, and organize documents
     into folders.
 common:
+- type: AgenticAccess
+  url: agentic-access/scrive-agentic-access.yml
 - type: DomainSecurity
   url: security/scrive-domain-security.yml
 - type: Authentication
