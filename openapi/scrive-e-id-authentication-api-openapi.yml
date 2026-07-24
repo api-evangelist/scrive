@@ -1,0 +1,117 @@
+openapi: 3.0.3
+info:
+  title: Scrive Document Access Control e-ID Authentication API
+  version: 2.0.0
+  description: The Scrive Document API (eSign Online, Version 2) is a RESTful, JSON-over-HTTPS interface that creates, prepares, sends, and manages the full lifecycle of documents for electronic signing, with identity verification through Nordic and European e-ID methods (BankID, MitID, Freja, Smart-ID, and more). Document status changes are delivered to consumers via HTTP callback (webhook) URLs. Endpoints are grounded in the public documentation at https://apidocs.scrive.com/. Request and response schemas are modeled and should be verified against the live docs.
+  contact:
+    name: API Evangelist
+    email: kin@apievangelist.com
+  license:
+    name: Proprietary
+    url: https://www.scrive.com/
+servers:
+- url: https://scrive.com/api/v2
+  description: Production
+- url: https://api-testbed.scrive.com/api/v2
+  description: API Testbed (development)
+security:
+- oauth2: []
+- oauth1: []
+tags:
+- name: e-ID Authentication
+paths:
+  /documents/{document_id}/{signatory_id}/setauthenticationtoview:
+    post:
+      tags:
+      - e-ID Authentication
+      operationId: setAuthToView
+      summary: Set the e-ID method required to view
+      parameters:
+      - $ref: '#/components/parameters/DocumentId'
+      - $ref: '#/components/parameters/SignatoryId'
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/AuthenticationSetting'
+      responses:
+        '200':
+          description: Authentication-to-view set.
+  /documents/{document_id}/{signatory_id}/setauthenticationtosign:
+    post:
+      tags:
+      - e-ID Authentication
+      operationId: setAuthToSign
+      summary: Set the e-ID method required to sign
+      parameters:
+      - $ref: '#/components/parameters/DocumentId'
+      - $ref: '#/components/parameters/SignatoryId'
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/AuthenticationSetting'
+      responses:
+        '200':
+          description: Authentication-to-sign set.
+  /documents/{document_id}/{signatory_id}/setauthenticationtoviewarchived:
+    post:
+      tags:
+      - e-ID Authentication
+      operationId: setAuthToViewArchived
+      summary: Set the e-ID method required to view archived
+      parameters:
+      - $ref: '#/components/parameters/DocumentId'
+      - $ref: '#/components/parameters/SignatoryId'
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/AuthenticationSetting'
+      responses:
+        '200':
+          description: Authentication-to-view-archived set.
+components:
+  schemas:
+    AuthenticationSetting:
+      type: object
+      properties:
+        authentication_type:
+          type: string
+          description: e-ID method, e.g. se_bankid, no_bankid, fi_tupas, dk_mitid, freja, smart_id_qes, sms_pin, standard, verimi.
+        personal_number:
+          type: string
+        mobile_number:
+          type: string
+  parameters:
+    SignatoryId:
+      name: signatory_id
+      in: path
+      required: true
+      schema:
+        type: string
+    DocumentId:
+      name: document_id
+      in: path
+      required: true
+      schema:
+        type: string
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://oauth2.scrive.com/oauth2/authorization
+          tokenUrl: https://oauth2.scrive.com/oauth2/token
+          scopes:
+            doc:create: Create documents
+            doc:check: Read documents
+            doc:send: Send documents
+            full: Full access
+            offline_access: Refresh tokens
+            openid: OpenID Connect
+    oauth1:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: OAuth 1.0 or personal access credentials passed in the Authorization header using PLAINTEXT signatures (oauth_consumer_key, oauth_token, oauth_signature).

@@ -1,0 +1,159 @@
+openapi: 3.0.3
+info:
+  title: Scrive Document Access Control API
+  version: 2.0.0
+  description: The Scrive Document API (eSign Online, Version 2) is a RESTful, JSON-over-HTTPS interface that creates, prepares, sends, and manages the full lifecycle of documents for electronic signing, with identity verification through Nordic and European e-ID methods (BankID, MitID, Freja, Smart-ID, and more). Document status changes are delivered to consumers via HTTP callback (webhook) URLs. Endpoints are grounded in the public documentation at https://apidocs.scrive.com/. Request and response schemas are modeled and should be verified against the live docs.
+  contact:
+    name: API Evangelist
+    email: kin@apievangelist.com
+  license:
+    name: Proprietary
+    url: https://www.scrive.com/
+servers:
+- url: https://scrive.com/api/v2
+  description: Production
+- url: https://api-testbed.scrive.com/api/v2
+  description: API Testbed (development)
+security:
+- oauth2: []
+- oauth1: []
+tags:
+- name: Access Control
+paths:
+  /usergroups/create:
+    post:
+      tags:
+      - Access Control
+      operationId: createUserGroup
+      summary: Create a user group
+      responses:
+        '201':
+          description: User group created.
+  /usergroups/{group_id}/get:
+    get:
+      tags:
+      - Access Control
+      operationId: getUserGroup
+      summary: Get a user group
+      parameters:
+      - $ref: '#/components/parameters/GroupId'
+      responses:
+        '200':
+          description: User group.
+  /usergroups/{group_id}/users:
+    get:
+      tags:
+      - Access Control
+      operationId: listGroupUsers
+      summary: List members of a user group
+      parameters:
+      - $ref: '#/components/parameters/GroupId'
+      responses:
+        '200':
+          description: A list of users.
+  /accessroles/{user_id}:
+    get:
+      tags:
+      - Access Control
+      operationId: listAccessRoles
+      summary: List a user's access roles
+      parameters:
+      - $ref: '#/components/parameters/UserId'
+      responses:
+        '200':
+          description: A list of access roles.
+    post:
+      tags:
+      - Access Control
+      operationId: grantAccessRole
+      summary: Grant an access role to a user
+      parameters:
+      - $ref: '#/components/parameters/UserId'
+      responses:
+        '201':
+          description: Access role granted.
+  /accessroles/{user_id}/{role_id}:
+    delete:
+      tags:
+      - Access Control
+      operationId: deleteAccessRole
+      summary: Revoke an access role
+      parameters:
+      - $ref: '#/components/parameters/UserId'
+      - name: role_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Access role revoked.
+  /folders/create:
+    post:
+      tags:
+      - Access Control
+      operationId: createFolder
+      summary: Create a folder
+      responses:
+        '201':
+          description: Folder created.
+  /folders/{folder_id}:
+    get:
+      tags:
+      - Access Control
+      operationId: getFolder
+      summary: View a folder
+      parameters:
+      - $ref: '#/components/parameters/FolderId'
+      responses:
+        '200':
+          description: Folder.
+    delete:
+      tags:
+      - Access Control
+      operationId: deleteFolder
+      summary: Delete a folder
+      parameters:
+      - $ref: '#/components/parameters/FolderId'
+      responses:
+        '200':
+          description: Folder deleted.
+components:
+  parameters:
+    GroupId:
+      name: group_id
+      in: path
+      required: true
+      schema:
+        type: string
+    FolderId:
+      name: folder_id
+      in: path
+      required: true
+      schema:
+        type: string
+    UserId:
+      name: user_id
+      in: path
+      required: true
+      schema:
+        type: string
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://oauth2.scrive.com/oauth2/authorization
+          tokenUrl: https://oauth2.scrive.com/oauth2/token
+          scopes:
+            doc:create: Create documents
+            doc:check: Read documents
+            doc:send: Send documents
+            full: Full access
+            offline_access: Refresh tokens
+            openid: OpenID Connect
+    oauth1:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: OAuth 1.0 or personal access credentials passed in the Authorization header using PLAINTEXT signatures (oauth_consumer_key, oauth_token, oauth_signature).

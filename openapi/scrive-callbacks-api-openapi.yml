@@ -1,0 +1,61 @@
+openapi: 3.0.3
+info:
+  title: Scrive Document Access Control Callbacks API
+  version: 2.0.0
+  description: The Scrive Document API (eSign Online, Version 2) is a RESTful, JSON-over-HTTPS interface that creates, prepares, sends, and manages the full lifecycle of documents for electronic signing, with identity verification through Nordic and European e-ID methods (BankID, MitID, Freja, Smart-ID, and more). Document status changes are delivered to consumers via HTTP callback (webhook) URLs. Endpoints are grounded in the public documentation at https://apidocs.scrive.com/. Request and response schemas are modeled and should be verified against the live docs.
+  contact:
+    name: API Evangelist
+    email: kin@apievangelist.com
+  license:
+    name: Proprietary
+    url: https://www.scrive.com/
+servers:
+- url: https://scrive.com/api/v2
+  description: Production
+- url: https://api-testbed.scrive.com/api/v2
+  description: API Testbed (development)
+security:
+- oauth2: []
+- oauth1: []
+tags:
+- name: Callbacks
+paths:
+  /documents/{document_id}/callback:
+    post:
+      tags:
+      - Callbacks
+      operationId: triggerCallback
+      summary: Trigger a manual callback
+      description: Triggers a callback (HTTP POST) to the document's configured api_callback_url. Scrive also automatically POSTs a callback when a document changes to pending, closed, canceled, timedout, or rejected, retrying failed deliveries.
+      parameters:
+      - $ref: '#/components/parameters/DocumentId'
+      responses:
+        '200':
+          description: Callback triggered.
+components:
+  parameters:
+    DocumentId:
+      name: document_id
+      in: path
+      required: true
+      schema:
+        type: string
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://oauth2.scrive.com/oauth2/authorization
+          tokenUrl: https://oauth2.scrive.com/oauth2/token
+          scopes:
+            doc:create: Create documents
+            doc:check: Read documents
+            doc:send: Send documents
+            full: Full access
+            offline_access: Refresh tokens
+            openid: OpenID Connect
+    oauth1:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: OAuth 1.0 or personal access credentials passed in the Authorization header using PLAINTEXT signatures (oauth_consumer_key, oauth_token, oauth_signature).
