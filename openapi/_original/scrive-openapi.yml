@@ -1,0 +1,725 @@
+openapi: 3.0.3
+info:
+  title: Scrive Document API
+  version: 2.0.0
+  description: >-
+    The Scrive Document API (eSign Online, Version 2) is a RESTful, JSON-over-HTTPS
+    interface that creates, prepares, sends, and manages the full lifecycle of
+    documents for electronic signing, with identity verification through Nordic and
+    European e-ID methods (BankID, MitID, Freja, Smart-ID, and more). Document status
+    changes are delivered to consumers via HTTP callback (webhook) URLs. Endpoints
+    are grounded in the public documentation at https://apidocs.scrive.com/. Request
+    and response schemas are modeled and should be verified against the live docs.
+  contact:
+    name: API Evangelist
+    email: kin@apievangelist.com
+  license:
+    name: Proprietary
+    url: https://www.scrive.com/
+servers:
+- url: https://scrive.com/api/v2
+  description: Production
+- url: https://api-testbed.scrive.com/api/v2
+  description: API Testbed (development)
+security:
+- oauth2: []
+- oauth1: []
+tags:
+- name: Monitor
+- name: Documents
+- name: Templates
+- name: Signing
+- name: e-ID Authentication
+- name: Attachments
+- name: Callbacks
+- name: Access Control
+paths:
+  /monitor/status:
+    get:
+      tags: [Monitor]
+      operationId: monitorStatus
+      summary: System status check
+      responses:
+        '200':
+          description: Service status.
+  /documents/new:
+    post:
+      tags: [Documents]
+      operationId: newDocument
+      summary: Create a new document
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+                saved:
+                  type: boolean
+      responses:
+        '201':
+          description: Created document.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Document'
+  /documents/newfromtemplate/{document_id}:
+    post:
+      tags: [Templates]
+      operationId: newFromTemplate
+      summary: Create a new document from a template
+      parameters:
+      - $ref: '#/components/parameters/DocumentId'
+      responses:
+        '201':
+          description: Document created from template.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Document'
+  /documents/{document_id}/clone:
+    post:
+      tags: [Templates]
+      operationId: cloneDocument
+      summary: Clone a document
+      parameters:
+      - $ref: '#/components/parameters/DocumentId'
+      responses:
+        '201':
+          description: Cloned document.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Document'
+  /documents/{document_id}/update:
+    post:
+      tags: [Documents]
+      operationId: updateDocument
+      summary: Update a document
+      parameters:
+      - $ref: '#/components/parameters/DocumentId'
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                document:
+                  type: string
+                  description: JSON document definition.
+      responses:
+        '200':
+          description: Updated document.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Document'
+  /documents/{document_id}/setfile:
+    post:
+      tags: [Documents]
+      operationId: setFile
+      summary: Set the main file of a document
+      parameters:
+      - $ref: '#/components/parameters/DocumentId'
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+      responses:
+        '200':
+          description: File set.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Document'
+  /documents/{document_id}/appendfile:
+    post:
+      tags: [Documents]
+      operationId: appendFile
+      summary: Append a PDF to a document
+      parameters:
+      - $ref: '#/components/parameters/DocumentId'
+      responses:
+        '200':
+          description: File appended.
+  /documents/{document_id}/start:
+    post:
+      tags: [Documents]
+      operationId: startDocument
+      summary: Start the signing process
+      parameters:
+      - $ref: '#/components/parameters/DocumentId'
+      responses:
+        '200':
+          description: Signing process started; document is pending.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Document'
+  /documents/{document_id}/get:
+    get:
+      tags: [Documents]
+      operationId: getDocument
+      summary: Retrieve a document
+      parameters:
+      - $ref: '#/components/parameters/DocumentId'
+      responses:
+        '200':
+          description: Document.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Document'
+  /documents/{short_document_id}/getbyshortid:
+    get:
+      tags: [Documents]
+      operationId: getByShortId
+      summary: Retrieve a document by short ID
+      parameters:
+      - name: short_document_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Document.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Document'
+  /documents/list:
+    get:
+      tags: [Documents]
+      operationId: listDocuments
+      summary: List documents
+      parameters:
+      - name: filter
+        in: query
+        schema:
+          type: string
+        description: JSON-encoded filter.
+      - name: sorting
+        in: query
+        schema:
+          type: string
+      - name: offset
+        in: query
+        schema:
+          type: integer
+      - name: max
+        in: query
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: A list of documents.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  total_matching:
+                    type: integer
+                  documents:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Document'
+  /documents/{document_id}/canbestarted:
+    get:
+      tags: [Documents]
+      operationId: canBeStarted
+      summary: Validate a document is ready to start
+      parameters:
+      - $ref: '#/components/parameters/DocumentId'
+      responses:
+        '200':
+          description: Readiness result.
+  /documents/{document_id}/remind:
+    post:
+      tags: [Signing]
+      operationId: remind
+      summary: Remind signatories
+      parameters:
+      - $ref: '#/components/parameters/DocumentId'
+      responses:
+        '200':
+          description: Reminder sent.
+  /documents/{document_id}/prolong:
+    post:
+      tags: [Documents]
+      operationId: prolong
+      summary: Extend document expiry
+      parameters:
+      - $ref: '#/components/parameters/DocumentId'
+      responses:
+        '200':
+          description: Expiry extended.
+  /documents/{document_id}/cancel:
+    post:
+      tags: [Documents]
+      operationId: cancel
+      summary: Cancel a pending document
+      parameters:
+      - $ref: '#/components/parameters/DocumentId'
+      responses:
+        '200':
+          description: Document canceled.
+  /documents/{document_id}/trash:
+    post:
+      tags: [Documents]
+      operationId: trash
+      summary: Move a document to trash
+      parameters:
+      - $ref: '#/components/parameters/DocumentId'
+      responses:
+        '200':
+          description: Document trashed.
+  /documents/{document_id}/delete:
+    post:
+      tags: [Documents]
+      operationId: deleteDocument
+      summary: Delete a document
+      parameters:
+      - $ref: '#/components/parameters/DocumentId'
+      responses:
+        '200':
+          description: Document deleted.
+  /documents/{document_id}/forward:
+    post:
+      tags: [Signing]
+      operationId: forward
+      summary: Forward a document
+      parameters:
+      - $ref: '#/components/parameters/DocumentId'
+      responses:
+        '200':
+          description: Document forwarded.
+  /documents/{document_id}/restart:
+    post:
+      tags: [Signing]
+      operationId: restart
+      summary: Restart a document
+      parameters:
+      - $ref: '#/components/parameters/DocumentId'
+      responses:
+        '201':
+          description: New document created from the restarted one.
+  /documents/{document_id}/{signatory_id}/resend:
+    post:
+      tags: [Signing]
+      operationId: resend
+      summary: Resend an invitation to a signatory
+      parameters:
+      - $ref: '#/components/parameters/DocumentId'
+      - $ref: '#/components/parameters/SignatoryId'
+      responses:
+        '200':
+          description: Invitation resent.
+  /documents/{document_id}/{signatory_id}/getqrcode:
+    get:
+      tags: [Signing]
+      operationId: getQrCode
+      summary: Get a sign-link QR code for a signatory
+      parameters:
+      - $ref: '#/components/parameters/DocumentId'
+      - $ref: '#/components/parameters/SignatoryId'
+      responses:
+        '200':
+          description: QR code image or data.
+  /documents/{document_id}/{signatory_id}/signingdata:
+    get:
+      tags: [Signing]
+      operationId: signingData
+      summary: Get signing data for a signatory
+      parameters:
+      - $ref: '#/components/parameters/DocumentId'
+      - $ref: '#/components/parameters/SignatoryId'
+      responses:
+        '200':
+          description: Signing data.
+  /documents/{document_id}/{signatory_id}/changemobile:
+    post:
+      tags: [Signing]
+      operationId: changeMobile
+      summary: Change a signatory's contact info
+      parameters:
+      - $ref: '#/components/parameters/DocumentId'
+      - $ref: '#/components/parameters/SignatoryId'
+      responses:
+        '200':
+          description: Contact info updated.
+  /documents/{document_id}/{signatory_id}/setauthenticationtoview:
+    post:
+      tags: [e-ID Authentication]
+      operationId: setAuthToView
+      summary: Set the e-ID method required to view
+      parameters:
+      - $ref: '#/components/parameters/DocumentId'
+      - $ref: '#/components/parameters/SignatoryId'
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/AuthenticationSetting'
+      responses:
+        '200':
+          description: Authentication-to-view set.
+  /documents/{document_id}/{signatory_id}/setauthenticationtosign:
+    post:
+      tags: [e-ID Authentication]
+      operationId: setAuthToSign
+      summary: Set the e-ID method required to sign
+      parameters:
+      - $ref: '#/components/parameters/DocumentId'
+      - $ref: '#/components/parameters/SignatoryId'
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/AuthenticationSetting'
+      responses:
+        '200':
+          description: Authentication-to-sign set.
+  /documents/{document_id}/{signatory_id}/setauthenticationtoviewarchived:
+    post:
+      tags: [e-ID Authentication]
+      operationId: setAuthToViewArchived
+      summary: Set the e-ID method required to view archived
+      parameters:
+      - $ref: '#/components/parameters/DocumentId'
+      - $ref: '#/components/parameters/SignatoryId'
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/AuthenticationSetting'
+      responses:
+        '200':
+          description: Authentication-to-view-archived set.
+  /documents/{document_id}/setattachments:
+    post:
+      tags: [Attachments]
+      operationId: setAttachments
+      summary: Set author attachments on a document
+      parameters:
+      - $ref: '#/components/parameters/DocumentId'
+      responses:
+        '200':
+          description: Attachments set.
+  /documents/{document_id}/{signatory_id}/setfiletosignatory:
+    post:
+      tags: [Attachments]
+      operationId: setFileToSignatory
+      summary: Attach a file to a signatory
+      parameters:
+      - $ref: '#/components/parameters/DocumentId'
+      - $ref: '#/components/parameters/SignatoryId'
+      responses:
+        '200':
+          description: File attached to signatory.
+  /documents/{document_id}/files/main/{filename}:
+    get:
+      tags: [Attachments]
+      operationId: getMainFile
+      summary: Download the main file
+      parameters:
+      - $ref: '#/components/parameters/DocumentId'
+      - name: filename
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: PDF file.
+          content:
+            application/pdf: {}
+  /documents/{document_id}/files/zip/{filename}:
+    get:
+      tags: [Attachments]
+      operationId: getZip
+      summary: Download all files as a ZIP
+      parameters:
+      - $ref: '#/components/parameters/DocumentId'
+      - name: filename
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ZIP archive.
+          content:
+            application/zip: {}
+  /attachments/list:
+    get:
+      tags: [Attachments]
+      operationId: listAttachments
+      summary: List reusable attachments
+      responses:
+        '200':
+          description: A list of attachments.
+  /attachments/new:
+    post:
+      tags: [Attachments]
+      operationId: newAttachment
+      summary: Create a reusable attachment
+      responses:
+        '201':
+          description: Attachment created.
+  /attachments/{attachment_id}/download:
+    get:
+      tags: [Attachments]
+      operationId: downloadAttachment
+      summary: Download an attachment
+      parameters:
+      - $ref: '#/components/parameters/AttachmentId'
+      responses:
+        '200':
+          description: Attachment file.
+  /attachments/{attachment_id}/share:
+    post:
+      tags: [Attachments]
+      operationId: shareAttachment
+      summary: Share or unshare an attachment
+      parameters:
+      - $ref: '#/components/parameters/AttachmentId'
+      responses:
+        '200':
+          description: Share state updated.
+  /attachments/{attachment_id}:
+    delete:
+      tags: [Attachments]
+      operationId: deleteAttachment
+      summary: Delete an attachment
+      parameters:
+      - $ref: '#/components/parameters/AttachmentId'
+      responses:
+        '200':
+          description: Attachment deleted.
+  /documents/{document_id}/callback:
+    post:
+      tags: [Callbacks]
+      operationId: triggerCallback
+      summary: Trigger a manual callback
+      description: >-
+        Triggers a callback (HTTP POST) to the document's configured api_callback_url.
+        Scrive also automatically POSTs a callback when a document changes to pending,
+        closed, canceled, timedout, or rejected, retrying failed deliveries.
+      parameters:
+      - $ref: '#/components/parameters/DocumentId'
+      responses:
+        '200':
+          description: Callback triggered.
+  /usergroups/create:
+    post:
+      tags: [Access Control]
+      operationId: createUserGroup
+      summary: Create a user group
+      responses:
+        '201':
+          description: User group created.
+  /usergroups/{group_id}/get:
+    get:
+      tags: [Access Control]
+      operationId: getUserGroup
+      summary: Get a user group
+      parameters:
+      - $ref: '#/components/parameters/GroupId'
+      responses:
+        '200':
+          description: User group.
+  /usergroups/{group_id}/users:
+    get:
+      tags: [Access Control]
+      operationId: listGroupUsers
+      summary: List members of a user group
+      parameters:
+      - $ref: '#/components/parameters/GroupId'
+      responses:
+        '200':
+          description: A list of users.
+  /accessroles/{user_id}:
+    get:
+      tags: [Access Control]
+      operationId: listAccessRoles
+      summary: List a user's access roles
+      parameters:
+      - $ref: '#/components/parameters/UserId'
+      responses:
+        '200':
+          description: A list of access roles.
+    post:
+      tags: [Access Control]
+      operationId: grantAccessRole
+      summary: Grant an access role to a user
+      parameters:
+      - $ref: '#/components/parameters/UserId'
+      responses:
+        '201':
+          description: Access role granted.
+  /accessroles/{user_id}/{role_id}:
+    delete:
+      tags: [Access Control]
+      operationId: deleteAccessRole
+      summary: Revoke an access role
+      parameters:
+      - $ref: '#/components/parameters/UserId'
+      - name: role_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Access role revoked.
+  /folders/create:
+    post:
+      tags: [Access Control]
+      operationId: createFolder
+      summary: Create a folder
+      responses:
+        '201':
+          description: Folder created.
+  /folders/{folder_id}:
+    get:
+      tags: [Access Control]
+      operationId: getFolder
+      summary: View a folder
+      parameters:
+      - $ref: '#/components/parameters/FolderId'
+      responses:
+        '200':
+          description: Folder.
+    delete:
+      tags: [Access Control]
+      operationId: deleteFolder
+      summary: Delete a folder
+      parameters:
+      - $ref: '#/components/parameters/FolderId'
+      responses:
+        '200':
+          description: Folder deleted.
+components:
+  parameters:
+    DocumentId:
+      name: document_id
+      in: path
+      required: true
+      schema:
+        type: string
+    SignatoryId:
+      name: signatory_id
+      in: path
+      required: true
+      schema:
+        type: string
+    AttachmentId:
+      name: attachment_id
+      in: path
+      required: true
+      schema:
+        type: string
+    GroupId:
+      name: group_id
+      in: path
+      required: true
+      schema:
+        type: string
+    UserId:
+      name: user_id
+      in: path
+      required: true
+      schema:
+        type: string
+    FolderId:
+      name: folder_id
+      in: path
+      required: true
+      schema:
+        type: string
+  schemas:
+    Document:
+      type: object
+      properties:
+        id:
+          type: string
+        title:
+          type: string
+        status:
+          type: string
+          enum: [preparation, pending, closed, canceled, timedout, rejected, document_error]
+        parties:
+          type: array
+          items:
+            $ref: '#/components/schemas/Signatory'
+        file:
+          type: object
+          nullable: true
+        api_callback_url:
+          type: string
+          nullable: true
+        ctime:
+          type: string
+          format: date-time
+        mtime:
+          type: string
+          format: date-time
+    Signatory:
+      type: object
+      properties:
+        id:
+          type: string
+        is_author:
+          type: boolean
+        is_signatory:
+          type: boolean
+        fields:
+          type: array
+          items:
+            type: object
+        authentication_method_to_view:
+          type: string
+        authentication_method_to_sign:
+          type: string
+    AuthenticationSetting:
+      type: object
+      properties:
+        authentication_type:
+          type: string
+          description: >-
+            e-ID method, e.g. se_bankid, no_bankid, fi_tupas, dk_mitid, freja,
+            smart_id_qes, sms_pin, standard, verimi.
+        personal_number:
+          type: string
+        mobile_number:
+          type: string
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://oauth2.scrive.com/oauth2/authorization
+          tokenUrl: https://oauth2.scrive.com/oauth2/token
+          scopes:
+            doc:create: Create documents
+            doc:check: Read documents
+            doc:send: Send documents
+            full: Full access
+            offline_access: Refresh tokens
+            openid: OpenID Connect
+    oauth1:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: >-
+        OAuth 1.0 or personal access credentials passed in the Authorization header
+        using PLAINTEXT signatures (oauth_consumer_key, oauth_token, oauth_signature).

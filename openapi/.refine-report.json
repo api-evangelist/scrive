@@ -1,0 +1,28 @@
+{
+  "provider": "scrive",
+  "sources": [
+    "scrive-access-control-api-openapi.yml",
+    "scrive-attachments-api-openapi.yml",
+    "scrive-callbacks-api-openapi.yml",
+    "scrive-documents-api-openapi.yml",
+    "scrive-e-id-authentication-api-openapi.yml",
+    "scrive-monitor-api-openapi.yml",
+    "scrive-signing-api-openapi.yml",
+    "scrive-templates-api-openapi.yml"
+  ],
+  "outputs": [
+    "scrive-access-control-api-openapi.yml",
+    "scrive-attachments-api-openapi.yml",
+    "scrive-callbacks-api-openapi.yml",
+    "scrive-documents-api-openapi.yml",
+    "scrive-e-id-authentication-api-openapi.yml",
+    "scrive-monitor-api-openapi.yml",
+    "scrive-signing-api-openapi.yml",
+    "scrive-templates-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
