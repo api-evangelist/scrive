@@ -1,0 +1,141 @@
+{
+  "item": [
+    {
+      "id": "ce4807d7-db5b-4958-afc1-26602aa08c11",
+      "name": "Callbacks",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "ff2d7d4c-176d-439b-b8f2-4e45c9c8965e",
+          "name": "Trigger a manual callback",
+          "request": {
+            "name": "Trigger a manual callback",
+            "description": {
+              "content": "Triggers a callback (HTTP POST) to the document's configured api_callback_url. Scrive also automatically POSTs a callback when a document changes to pending, closed, canceled, timedout, or rejected, retrying failed deliveries.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "documents",
+                ":document_id",
+                "callback"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "document_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "640412a6-49fa-4fe0-b8d7-3043e3cd5b6b",
+              "name": "Callback triggered.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "documents",
+                    ":document_id",
+                    "callback"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "document_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://scrive.com/api/v2",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "scope",
+        "value": "doc:create doc:check doc:send full offline_access openid"
+      },
+      {
+        "key": "accessTokenUrl",
+        "value": "https://oauth2.scrive.com/oauth2/token"
+      },
+      {
+        "key": "authUrl",
+        "value": "https://oauth2.scrive.com/oauth2/authorization"
+      },
+      {
+        "key": "grant_type",
+        "value": "authorization_code"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "e31427a0-13f8-46a6-ab60-9971ef9a02f5",
+    "name": "Scrive Document Access Control Callbacks API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Scrive Document API (eSign Online, Version 2) is a RESTful, JSON-over-HTTPS interface that creates, prepares, sends, and manages the full lifecycle of documents for electronic signing, with identity verification through Nordic and European e-ID methods (BankID, MitID, Freja, Smart-ID, and more). Document status changes are delivered to consumers via HTTP callback (webhook) URLs. Endpoints are grounded in the public documentation at https://apidocs.scrive.com/. Request and response schemas are modeled and should be verified against the live docs.\n\nContact Support:\n Name: API Evangelist\n Email: kin@apievangelist.com",
+      "type": "text/plain"
+    }
+  }
+}

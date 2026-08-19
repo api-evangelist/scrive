@@ -1,0 +1,308 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Scrive Document Access Control Documents API",
+    "version": "2.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "authorization_code",
+      "authorizationUrl": "https://oauth2.scrive.com/oauth2/authorization",
+      "accessTokenUrl": "https://oauth2.scrive.com/oauth2/token",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Documents",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create a new document",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://scrive.com/api/v2/documents/new",
+            "body": {
+              "type": "multipart-form",
+              "data": [
+                {
+                  "name": "file",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "saved",
+                  "type": "text",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "docs": "Create a new document"
+        },
+        {
+          "info": {
+            "name": "Update a document",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://scrive.com/api/v2/documents/:document_id/update",
+            "params": [
+              {
+                "name": "document_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "multipart-form",
+              "data": [
+                {
+                  "name": "document",
+                  "type": "text",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "docs": "Update a document"
+        },
+        {
+          "info": {
+            "name": "Set the main file of a document",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://scrive.com/api/v2/documents/:document_id/setfile",
+            "params": [
+              {
+                "name": "document_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "multipart-form",
+              "data": [
+                {
+                  "name": "file",
+                  "type": "text",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "docs": "Set the main file of a document"
+        },
+        {
+          "info": {
+            "name": "Append a PDF to a document",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://scrive.com/api/v2/documents/:document_id/appendfile",
+            "params": [
+              {
+                "name": "document_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Append a PDF to a document"
+        },
+        {
+          "info": {
+            "name": "Start the signing process",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://scrive.com/api/v2/documents/:document_id/start",
+            "params": [
+              {
+                "name": "document_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Start the signing process"
+        },
+        {
+          "info": {
+            "name": "Retrieve a document",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://scrive.com/api/v2/documents/:document_id/get",
+            "params": [
+              {
+                "name": "document_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieve a document"
+        },
+        {
+          "info": {
+            "name": "Retrieve a document by short ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://scrive.com/api/v2/documents/:short_document_id/getbyshortid",
+            "params": [
+              {
+                "name": "short_document_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieve a document by short ID"
+        },
+        {
+          "info": {
+            "name": "List documents",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://scrive.com/api/v2/documents/list",
+            "params": [
+              {
+                "name": "filter",
+                "value": "",
+                "type": "query",
+                "description": "JSON-encoded filter."
+              },
+              {
+                "name": "sorting",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "max",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "List documents"
+        },
+        {
+          "info": {
+            "name": "Validate a document is ready to start",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://scrive.com/api/v2/documents/:document_id/canbestarted",
+            "params": [
+              {
+                "name": "document_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Validate a document is ready to start"
+        },
+        {
+          "info": {
+            "name": "Extend document expiry",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://scrive.com/api/v2/documents/:document_id/prolong",
+            "params": [
+              {
+                "name": "document_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Extend document expiry"
+        },
+        {
+          "info": {
+            "name": "Cancel a pending document",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://scrive.com/api/v2/documents/:document_id/cancel",
+            "params": [
+              {
+                "name": "document_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Cancel a pending document"
+        },
+        {
+          "info": {
+            "name": "Move a document to trash",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://scrive.com/api/v2/documents/:document_id/trash",
+            "params": [
+              {
+                "name": "document_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Move a document to trash"
+        },
+        {
+          "info": {
+            "name": "Delete a document",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://scrive.com/api/v2/documents/:document_id/delete",
+            "params": [
+              {
+                "name": "document_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete a document"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

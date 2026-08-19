@@ -1,0 +1,193 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Scrive Document Access Control Attachments API",
+    "version": "2.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "authorization_code",
+      "authorizationUrl": "https://oauth2.scrive.com/oauth2/authorization",
+      "accessTokenUrl": "https://oauth2.scrive.com/oauth2/token",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Attachments",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Set author attachments on a document",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://scrive.com/api/v2/documents/:document_id/setattachments",
+            "params": [
+              {
+                "name": "document_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Set author attachments on a document"
+        },
+        {
+          "info": {
+            "name": "Attach a file to a signatory",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://scrive.com/api/v2/documents/:document_id/:signatory_id/setfiletosignatory",
+            "params": [
+              {
+                "name": "document_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "signatory_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Attach a file to a signatory"
+        },
+        {
+          "info": {
+            "name": "Download the main file",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://scrive.com/api/v2/documents/:document_id/files/main/:filename",
+            "params": [
+              {
+                "name": "document_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "filename",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Download the main file"
+        },
+        {
+          "info": {
+            "name": "Download all files as a ZIP",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://scrive.com/api/v2/documents/:document_id/files/zip/:filename",
+            "params": [
+              {
+                "name": "document_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "filename",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Download all files as a ZIP"
+        },
+        {
+          "info": {
+            "name": "List reusable attachments",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://scrive.com/api/v2/attachments/list"
+          },
+          "docs": "List reusable attachments"
+        },
+        {
+          "info": {
+            "name": "Create a reusable attachment",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://scrive.com/api/v2/attachments/new"
+          },
+          "docs": "Create a reusable attachment"
+        },
+        {
+          "info": {
+            "name": "Download an attachment",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://scrive.com/api/v2/attachments/:attachment_id/download",
+            "params": [
+              {
+                "name": "attachment_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Download an attachment"
+        },
+        {
+          "info": {
+            "name": "Share or unshare an attachment",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://scrive.com/api/v2/attachments/:attachment_id/share",
+            "params": [
+              {
+                "name": "attachment_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Share or unshare an attachment"
+        },
+        {
+          "info": {
+            "name": "Delete an attachment",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://scrive.com/api/v2/attachments/:attachment_id",
+            "params": [
+              {
+                "name": "attachment_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete an attachment"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

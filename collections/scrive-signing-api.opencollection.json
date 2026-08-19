@@ -1,0 +1,176 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Scrive Document Access Control Signing API",
+    "version": "2.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "authorization_code",
+      "authorizationUrl": "https://oauth2.scrive.com/oauth2/authorization",
+      "accessTokenUrl": "https://oauth2.scrive.com/oauth2/token",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Signing",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Remind signatories",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://scrive.com/api/v2/documents/:document_id/remind",
+            "params": [
+              {
+                "name": "document_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Remind signatories"
+        },
+        {
+          "info": {
+            "name": "Forward a document",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://scrive.com/api/v2/documents/:document_id/forward",
+            "params": [
+              {
+                "name": "document_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Forward a document"
+        },
+        {
+          "info": {
+            "name": "Restart a document",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://scrive.com/api/v2/documents/:document_id/restart",
+            "params": [
+              {
+                "name": "document_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Restart a document"
+        },
+        {
+          "info": {
+            "name": "Resend an invitation to a signatory",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://scrive.com/api/v2/documents/:document_id/:signatory_id/resend",
+            "params": [
+              {
+                "name": "document_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "signatory_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Resend an invitation to a signatory"
+        },
+        {
+          "info": {
+            "name": "Get a sign-link QR code for a signatory",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://scrive.com/api/v2/documents/:document_id/:signatory_id/getqrcode",
+            "params": [
+              {
+                "name": "document_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "signatory_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get a sign-link QR code for a signatory"
+        },
+        {
+          "info": {
+            "name": "Get signing data for a signatory",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://scrive.com/api/v2/documents/:document_id/:signatory_id/signingdata",
+            "params": [
+              {
+                "name": "document_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "signatory_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get signing data for a signatory"
+        },
+        {
+          "info": {
+            "name": "Change a signatory's contact info",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://scrive.com/api/v2/documents/:document_id/:signatory_id/changemobile",
+            "params": [
+              {
+                "name": "document_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "signatory_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Change a signatory's contact info"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

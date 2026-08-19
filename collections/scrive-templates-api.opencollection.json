@@ -1,0 +1,66 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Scrive Document Access Control Templates API",
+    "version": "2.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "authorization_code",
+      "authorizationUrl": "https://oauth2.scrive.com/oauth2/authorization",
+      "accessTokenUrl": "https://oauth2.scrive.com/oauth2/token",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Templates",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create a new document from a template",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://scrive.com/api/v2/documents/newfromtemplate/:document_id",
+            "params": [
+              {
+                "name": "document_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Create a new document from a template"
+        },
+        {
+          "info": {
+            "name": "Clone a document",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://scrive.com/api/v2/documents/:document_id/clone",
+            "params": [
+              {
+                "name": "document_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Clone a document"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

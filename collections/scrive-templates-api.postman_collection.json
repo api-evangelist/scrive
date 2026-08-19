@@ -1,0 +1,243 @@
+{
+  "item": [
+    {
+      "id": "21c70918-4fc2-44a3-9d65-e666fa6eab95",
+      "name": "Templates",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "585c9586-52f0-4b23-9ada-c45c0a00f5b6",
+          "name": "Create a new document from a template",
+          "request": {
+            "name": "Create a new document from a template",
+            "description": {},
+            "url": {
+              "path": [
+                "documents",
+                "newfromtemplate",
+                ":document_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "document_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "12e5b5db-6659-4c9a-8b05-0a1ced6c0465",
+              "name": "Document created from template.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "documents",
+                    "newfromtemplate",
+                    ":document_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "document_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"title\": \"string\",\n  \"status\": \"closed\",\n  \"parties\": [\n    {\n      \"id\": \"string\",\n      \"is_author\": true,\n      \"is_signatory\": false,\n      \"authentication_method_to_view\": \"string\",\n      \"authentication_method_to_sign\": \"string\"\n    },\n    {\n      \"id\": \"string\",\n      \"is_author\": false,\n      \"is_signatory\": false,\n      \"authentication_method_to_view\": \"string\",\n      \"authentication_method_to_sign\": \"string\"\n    }\n  ],\n  \"file\": {},\n  \"api_callback_url\": \"string\",\n  \"ctime\": \"1998-12-27T21:30:43.628Z\",\n  \"mtime\": \"1978-05-24T21:33:17.164Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c244821a-8876-4ce6-a324-ea1bd0f330fa",
+          "name": "Clone a document",
+          "request": {
+            "name": "Clone a document",
+            "description": {},
+            "url": {
+              "path": [
+                "documents",
+                ":document_id",
+                "clone"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "document_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "e3c1dc5a-41da-4bd1-bfcb-81bb6700a67e",
+              "name": "Cloned document.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "documents",
+                    ":document_id",
+                    "clone"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "document_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"title\": \"string\",\n  \"status\": \"document_error\",\n  \"parties\": [\n    {\n      \"id\": \"string\",\n      \"is_author\": true,\n      \"is_signatory\": true,\n      \"authentication_method_to_view\": \"string\",\n      \"authentication_method_to_sign\": \"string\"\n    },\n    {\n      \"id\": \"string\",\n      \"is_author\": true,\n      \"is_signatory\": true,\n      \"authentication_method_to_view\": \"string\",\n      \"authentication_method_to_sign\": \"string\"\n    }\n  ],\n  \"file\": {},\n  \"api_callback_url\": \"string\",\n  \"ctime\": \"2010-11-09T18:00:06.646Z\",\n  \"mtime\": \"1977-11-02T16:48:30.737Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://scrive.com/api/v2",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "scope",
+        "value": "doc:create doc:check doc:send full offline_access openid"
+      },
+      {
+        "key": "accessTokenUrl",
+        "value": "https://oauth2.scrive.com/oauth2/token"
+      },
+      {
+        "key": "authUrl",
+        "value": "https://oauth2.scrive.com/oauth2/authorization"
+      },
+      {
+        "key": "grant_type",
+        "value": "authorization_code"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "77c2e920-5270-4540-add7-27391d15c2b0",
+    "name": "Scrive Document Access Control Templates API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Scrive Document API (eSign Online, Version 2) is a RESTful, JSON-over-HTTPS interface that creates, prepares, sends, and manages the full lifecycle of documents for electronic signing, with identity verification through Nordic and European e-ID methods (BankID, MitID, Freja, Smart-ID, and more). Document status changes are delivered to consumers via HTTP callback (webhook) URLs. Endpoints are grounded in the public documentation at https://apidocs.scrive.com/. Request and response schemas are modeled and should be verified against the live docs.\n\nContact Support:\n Name: API Evangelist\n Email: kin@apievangelist.com",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,183 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Scrive Document Access Control API",
+    "version": "2.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "authorization_code",
+      "authorizationUrl": "https://oauth2.scrive.com/oauth2/authorization",
+      "accessTokenUrl": "https://oauth2.scrive.com/oauth2/token",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Access Control",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create a user group",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://scrive.com/api/v2/usergroups/create"
+          },
+          "docs": "Create a user group"
+        },
+        {
+          "info": {
+            "name": "Get a user group",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://scrive.com/api/v2/usergroups/:group_id/get",
+            "params": [
+              {
+                "name": "group_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get a user group"
+        },
+        {
+          "info": {
+            "name": "List members of a user group",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://scrive.com/api/v2/usergroups/:group_id/users",
+            "params": [
+              {
+                "name": "group_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "List members of a user group"
+        },
+        {
+          "info": {
+            "name": "List a user's access roles",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://scrive.com/api/v2/accessroles/:user_id",
+            "params": [
+              {
+                "name": "user_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "List a user's access roles"
+        },
+        {
+          "info": {
+            "name": "Grant an access role to a user",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://scrive.com/api/v2/accessroles/:user_id",
+            "params": [
+              {
+                "name": "user_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Grant an access role to a user"
+        },
+        {
+          "info": {
+            "name": "Revoke an access role",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://scrive.com/api/v2/accessroles/:user_id/:role_id",
+            "params": [
+              {
+                "name": "user_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "role_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Revoke an access role"
+        },
+        {
+          "info": {
+            "name": "Create a folder",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://scrive.com/api/v2/folders/create"
+          },
+          "docs": "Create a folder"
+        },
+        {
+          "info": {
+            "name": "View a folder",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://scrive.com/api/v2/folders/:folder_id",
+            "params": [
+              {
+                "name": "folder_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "View a folder"
+        },
+        {
+          "info": {
+            "name": "Delete a folder",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://scrive.com/api/v2/folders/:folder_id",
+            "params": [
+              {
+                "name": "folder_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete a folder"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
