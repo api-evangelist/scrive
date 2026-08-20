@@ -29,6 +29,15 @@ tags:
 - E-Signature
 - Electronic Signing
 - Digital Identity
+- eID
+- BankID
+- MitID
+- Nordic
+- Document Workflow
+tags_raw:
+- E-Signature
+- Electronic Signing
+- Digital Identity
 - e-ID
 - BankID
 - MitID
@@ -144,6 +153,8 @@ apis:
   humanURL: https://apidocs.scrive.com/
   baseURL: https://scrive.com/api/v2
   tags:
+  - Monitors
+  tags_raw:
   - Monitor
   properties:
   - type: OpenAPI
