@@ -11,6 +11,18 @@ description: Scrive is a Nordic e-signature and digital identity (e-ID) platform
   uses OAuth2, OAuth 1.0, or personal access credentials; document status changes
   are delivered to consumers via HTTP callback (webhook) URLs. A separate Scrive eID
   Hub provides standalone identity authentication and signing.
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: true
+  label: Hosted service · you call their endpoint
+  confidence: high
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: freemium
   onboarding: self-serve
