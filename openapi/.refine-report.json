@@ -1,28 +1,34 @@
 {
   "provider": "scrive",
   "sources": [
-    "scrive-access-control-api-openapi.yml",
-    "scrive-attachments-api-openapi.yml",
-    "scrive-callbacks-api-openapi.yml",
-    "scrive-documents-api-openapi.yml",
-    "scrive-e-id-authentication-api-openapi.yml",
-    "scrive-monitor-api-openapi.yml",
-    "scrive-signing-api-openapi.yml",
-    "scrive-templates-api-openapi.yml"
+    "_original/scrive-openapi.yml"
   ],
   "outputs": [
     "scrive-access-control-api-openapi.yml",
     "scrive-attachments-api-openapi.yml",
     "scrive-callbacks-api-openapi.yml",
     "scrive-documents-api-openapi.yml",
-    "scrive-e-id-authentication-api-openapi.yml",
     "scrive-monitor-api-openapi.yml",
     "scrive-signing-api-openapi.yml",
-    "scrive-templates-api-openapi.yml"
+    "scrive-templates-api-openapi.yml",
+    "scrive-e-id-authentication-api-openapi.yml"
   ],
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "scrive-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "scrive-access-control-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "scrive-attachments-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "scrive-callbacks-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "scrive-documents-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "scrive-e-id-authentication-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "scrive-monitor-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "scrive-signing-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "scrive-templates-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }

@@ -1,8 +1,8 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Scrive Document Access Control Attachments API
+  title: Scrive Document Attachments API
   version: 2.0.0
-  description: The Scrive Document API (eSign Online, Version 2) is a RESTful, JSON-over-HTTPS interface that creates, prepares, sends, and manages the full lifecycle of documents for electronic signing, with identity verification through Nordic and European e-ID methods (BankID, MitID, Freja, Smart-ID, and more). Document status changes are delivered to consumers via HTTP callback (webhook) URLs. Endpoints are grounded in the public documentation at https://apidocs.scrive.com/. Request and response schemas are modeled and should be verified against the live docs.
+  description: The Scrive Document API (eSign Online, Version 2) is a RESTful, JSON-over-HTTPS interface that creates, prepares, sends, and manages the full lifecycle of documents for electronic signing, with identity verification through Nordic and European e-ID methods (BankID, MitID, Freja, Smart-ID, and more).
   contact:
     name: API Evangelist
     email: kin@apievangelist.com
@@ -132,6 +132,12 @@ paths:
           description: Attachment deleted.
 components:
   parameters:
+    DocumentId:
+      name: document_id
+      in: path
+      required: true
+      schema:
+        type: string
     AttachmentId:
       name: attachment_id
       in: path
@@ -140,12 +146,6 @@ components:
         type: string
     SignatoryId:
       name: signatory_id
-      in: path
-      required: true
-      schema:
-        type: string
-    DocumentId:
-      name: document_id
       in: path
       required: true
       schema:
