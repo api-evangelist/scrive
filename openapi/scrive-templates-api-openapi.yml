@@ -51,13 +51,6 @@ paths:
               schema:
                 $ref: '#/components/schemas/Document'
 components:
-  parameters:
-    DocumentId:
-      name: document_id
-      in: path
-      required: true
-      schema:
-        type: string
   schemas:
     Signatory:
       type: object
@@ -111,6 +104,13 @@ components:
         mtime:
           type: string
           format: date-time
+  parameters:
+    DocumentId:
+      name: document_id
+      in: path
+      required: true
+      schema:
+        type: string
   securitySchemes:
     oauth2:
       type: oauth2

@@ -73,14 +73,14 @@ paths:
           description: Authentication-to-view-archived set.
 components:
   parameters:
-    DocumentId:
-      name: document_id
+    SignatoryId:
+      name: signatory_id
       in: path
       required: true
       schema:
         type: string
-    SignatoryId:
-      name: signatory_id
+    DocumentId:
+      name: document_id
       in: path
       required: true
       schema:
