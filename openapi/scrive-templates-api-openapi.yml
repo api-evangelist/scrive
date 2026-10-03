@@ -52,23 +52,6 @@ paths:
                 $ref: '#/components/schemas/Document'
 components:
   schemas:
-    Signatory:
-      type: object
-      properties:
-        id:
-          type: string
-        is_author:
-          type: boolean
-        is_signatory:
-          type: boolean
-        fields:
-          type: array
-          items:
-            type: object
-        authentication_method_to_view:
-          type: string
-        authentication_method_to_sign:
-          type: string
     Document:
       type: object
       properties:
@@ -104,6 +87,23 @@ components:
         mtime:
           type: string
           format: date-time
+    Signatory:
+      type: object
+      properties:
+        id:
+          type: string
+        is_author:
+          type: boolean
+        is_signatory:
+          type: boolean
+        fields:
+          type: array
+          items:
+            type: object
+        authentication_method_to_view:
+          type: string
+        authentication_method_to_sign:
+          type: string
   parameters:
     DocumentId:
       name: document_id

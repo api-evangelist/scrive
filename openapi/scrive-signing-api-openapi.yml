@@ -103,14 +103,14 @@ paths:
           description: Contact info updated.
 components:
   parameters:
-    SignatoryId:
-      name: signatory_id
+    DocumentId:
+      name: document_id
       in: path
       required: true
       schema:
         type: string
-    DocumentId:
-      name: document_id
+    SignatoryId:
+      name: signatory_id
       in: path
       required: true
       schema:

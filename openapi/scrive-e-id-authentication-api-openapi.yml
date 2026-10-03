@@ -72,19 +72,6 @@ paths:
         '200':
           description: Authentication-to-view-archived set.
 components:
-  parameters:
-    SignatoryId:
-      name: signatory_id
-      in: path
-      required: true
-      schema:
-        type: string
-    DocumentId:
-      name: document_id
-      in: path
-      required: true
-      schema:
-        type: string
   schemas:
     AuthenticationSetting:
       type: object
@@ -96,6 +83,19 @@ components:
           type: string
         mobile_number:
           type: string
+  parameters:
+    DocumentId:
+      name: document_id
+      in: path
+      required: true
+      schema:
+        type: string
+    SignatoryId:
+      name: signatory_id
+      in: path
+      required: true
+      schema:
+        type: string
   securitySchemes:
     oauth2:
       type: oauth2
