@@ -1,0 +1,25 @@
+slug: scrive
+provider: Scrive
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Software & Technology
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 1
+edges:
+- tag: Access Control
+  spec_file: scrive-access-control-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.8
+  evidence: POST /accessroles/{user_id}  grantAccessRole  Grant an access role to a user; DELETE /accessroles/{user_id}/{role_id}  Revoke
+    an access role; POST /usergroups/create  Create a user group
+  reason: Operations create user groups and grant/revoke access roles, which is identity and access administration.
+    Folder operations are incidental resource containers for permissioning, so IAM is the best fit.

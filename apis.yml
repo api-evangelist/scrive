@@ -222,6 +222,9 @@ apis:
   - type: Documentation
     url: https://eid.scrive.com/documentation/api/v1/
 common:
+- type: CapabilityMap
+  url: capabilities/scrive-capability-edges.yml
+  name: Scrive Business Capability Map
 - type: AgenticAccess
   url: agentic-access/scrive-agentic-access.yml
 - type: DomainSecurity
