@@ -120,14 +120,14 @@ paths:
           description: Folder deleted.
 components:
   parameters:
-    GroupId:
-      name: group_id
+    FolderId:
+      name: folder_id
       in: path
       required: true
       schema:
         type: string
-    FolderId:
-      name: folder_id
+    GroupId:
+      name: group_id
       in: path
       required: true
       schema:

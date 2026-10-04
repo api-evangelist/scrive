@@ -132,8 +132,8 @@ paths:
           description: Attachment deleted.
 components:
   parameters:
-    AttachmentId:
-      name: attachment_id
+    SignatoryId:
+      name: signatory_id
       in: path
       required: true
       schema:
@@ -144,8 +144,8 @@ components:
       required: true
       schema:
         type: string
-    SignatoryId:
-      name: signatory_id
+    AttachmentId:
+      name: attachment_id
       in: path
       required: true
       schema:
