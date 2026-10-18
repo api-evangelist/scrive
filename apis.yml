@@ -39,7 +39,6 @@ accessModel:
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/scrive.png
 tags:
 - E-Signature
-- Electronic Signing
 - Digital Identity
 - eID
 - BankID
