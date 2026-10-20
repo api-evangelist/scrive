@@ -32,30 +32,6 @@ edges:
     detected: '2026-10-13'
   detected_by: sweep-identity.py
   detected: '2026-10-13'
-- partner_name: EU Trusted List (eIDAS)
-  partner: null
-  partner_match: register
-  type: contract
-  channel: regulator-register
-  relationship: standard-participant
-  direction: partner-built
-  evidence: https://nkom.no/files/TL/NO_TL.xml
-  contract_reference:
-    register: EU List of Trusted Lists (eIDAS qualified trust service providers)
-    spec_file: null
-    role: qualified-trust-service-provider
-    registered_name: SCRIVE AS
-    member_state: 'NO'
-    trusted_list: https://nkom.no/files/TL/NO_TL.xml
-    services:
-    - QES-certificates
-    lotl: https://ec.europa.eu/tools/lotl/eu-lotl.xml
-    matched_domain: scrive.eu
-    detected_by: sweep-legal.py
-    detected: '2026-10-14'
-  source: eutl
-  detected_by: sweep-legal.py
-  first_seen: '2026-10-14'
 - partner_name: Zapier
   partner: zapier
   partner_match: aggregator
@@ -100,5 +76,31 @@ edges:
   category: Microsoft Teams app
   publisher_verified:
   - Microsoft 365 Publisher Attestation
+- partner_name: EU Trusted List (eIDAS)
+  partner: null
+  partner_match: register
+  type: contract
+  channel: regulator-register
+  relationship: standard-participant
+  direction: partner-built
+  evidence: https://nkom.no/files/TL/NO_TL.xml
+  contract_reference:
+    register: EU List of Trusted Lists (eIDAS qualified trust service providers)
+    spec_file: null
+    role: qualified-trust-service-provider
+    registered_name: SCRIVE AS
+    member_state: 'NO'
+    trusted_list: https://nkom.no/files/TL/NO_TL.xml
+    services:
+    - QES-certificates
+    lotl: https://ec.europa.eu/tools/lotl/eu-lotl.xml
+    matched_domain: scrive.eu
+    detected_by: sweep-legal.py
+    detected: '2026-10-19'
+  source: eutl
+  detected_by: sweep-legal.py
+  first_seen: '2026-10-19'
 source:
+- https://nkom.no/files/TL/NO_TL.xml
+- https://nkom.no/files/TL/NO_TL.xml
 - https://nkom.no/files/TL/NO_TL.xml
